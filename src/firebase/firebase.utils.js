@@ -1,5 +1,11 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
+import {
+  getFirestore,
+  doc,
+  getDoc,
+  setDoc,
+  onSnapshot,
+} from "firebase/firestore";
 import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 
 const config = {
@@ -10,6 +16,31 @@ const config = {
   messagingSenderId: "28489026834",
   appId: "1:28489026834:web:0d1ce4982f2162f3bf77cb",
   measurementId: "G-DGGYVLNJT3",
+};
+
+export const createUserProfileDocument = async (userAuth, additonalData) => {
+  if (!userAuth) return;
+
+  const userRef = doc(firestore, `users/${userAuth.uid}`);
+  const snapShot = await getDoc(userRef);
+
+  if (!snapShot.exists()) {
+    const { displayName, email } = userAuth;
+    const createdAt = new Date();
+
+    try {
+      await setDoc(userRef, {
+        displayName,
+        email,
+        createdAt,
+        ...additonalData,
+      });
+    } catch (err) {
+      console.log("Error Creating User: ", err.message);
+    }
+  }
+
+  return userRef;
 };
 
 initializeApp(config);
