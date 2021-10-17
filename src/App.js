@@ -25,6 +25,7 @@ class App extends React.Component {
   unsubscribeFromAuth = null;
 
   componentDidMount() {
+    console.log("this.props: ", this.props);
     const { setCurrentUser } = this.props;
 
     this.unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
@@ -68,6 +69,7 @@ class App extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
+  //just dispatching the object, user will be used in payload, we are dispatching the object
   setCurrentUser: (user) => dispatch(setCurrentUser(user)),
 });
 

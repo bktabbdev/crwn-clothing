@@ -41,4 +41,5 @@ const mapStateToProps = (state) => ({
   currentUser: state.user.currentUser,
 });
 
+//used anytime we need properties from reducers
 export default connect(mapStateToProps)(Header);
