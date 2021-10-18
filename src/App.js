@@ -1,6 +1,7 @@
 import React from "react";
 import { Switch, Route, Redirect } from "react-router";
 import { connect } from "react-redux";
+import { createStructuredSelector } from "reselect";
 
 import "./App.css";
 
@@ -10,6 +11,7 @@ import SignInAndSignUpPage from "./pages/sign-in-and-sign-up/sign-in-and-sign-up
 import Header from "./components/header/header.component";
 import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
 import { setCurrentUser } from "./redux/user/user.actions";
+import { selectCurrentUser } from "./redux/user/user.selector";
 
 import { onSnapshot } from "firebase/firestore";
 
@@ -77,10 +79,12 @@ class App extends React.Component {
   }
 }
 
-const mapStateToProps = (props) => {
+const mapStateToProps = createStructuredSelector({
   //return currentUser prop
-  return { currentUser: props.user.currentUser };
-};
+  //createStructuredSelector reduces code - takes an object whose properties are input selectors and returns a structured selector
+  currentUser: selectCurrentUser,
+  // return { currentUser: props.user.currentUser };
+});
 
 const mapDispatchToProps = (dispatch) => ({
   //just dispatching the object, user will be used in payload, we are dispatching the object
