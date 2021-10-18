@@ -9,7 +9,6 @@ import { selectCartItemsCount } from "../../redux/cart/cart.selectors";
 
 import "./cart-icon.styles.scss";
 import { createStructuredSelector } from "reselect";
-import { createBrotliCompress } from "zlib";
 
 const CartIcon = ({ toggleCartHidden, itemCount }) => (
   <div className="cart-icon">
