@@ -4,11 +4,12 @@ import { connect } from "react-redux";
 import CollectionItem from "../../components/collection-item/collection-item.component";
 
 import { selectCollection } from "../../redux/shop/shop.selectors";
-import { CheckoutPage } from "./../../pages/checkout/checkout.component";
 
 import "./collection.styles.scss";
 
 const CollectionPage = ({ match, collection, ...otherProps }) => {
+  const [state, setState] = setState(0);
+
   const { title, items } = collection;
   return (
     <div className="collection-page">
